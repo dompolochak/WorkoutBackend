@@ -1,0 +1,27 @@
+{
+  "name": "workoutbackend",
+  "version": "1.0.0",
+  "description": "Backend",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dompolochak/WorkoutBackend.git"
+  },
+  "author": "Dominic Polochak",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dompolochak/WorkoutBackend/issues"
+  },
+  "homepage": "https://github.com/dompolochak/WorkoutBackend#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "helmet": "^4.2.0",
+    "mysql": "^2.18.1",
+    "tedious": "^9.2.1"
+  }
+}
