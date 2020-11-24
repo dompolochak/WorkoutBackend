@@ -52,6 +52,21 @@ app.post("/post_workouts", (request, response) => {
     });
 });
 
+app.post("/display_table", (request,response)=>{
+    const {Date}=request.body;
+    const query = "SELECT * FROM workoutdb.Lifts WHERE Date = " + Date;
+
+    connection.query(query, (error,results) => {
+        if(error)
+        {
+            console.log(error);
+            return response.status(400).send();
+        }
+        
+        response.status(200).send(results);
+    });
+});
+
 //end api calls
 //starting server
 app.listen(4000, () => {
