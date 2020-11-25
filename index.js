@@ -52,9 +52,9 @@ app.post("/post_workouts", (request, response) => {
     });
 });
 
-app.post("/display_table", (request,response)=>{
-    const {Date}=request.body;
-    const query = "SELECT * FROM workoutdb.Lifts WHERE Date = " + Date;
+app.post("/delete_workout", (request,response)=>{
+    const {Lift_ID}=request.body;
+    const query = "DELETE FROM workoutdb.Lifts WHERE Lift_ID = " + Lift_ID;
 
     connection.query(query, (error,results) => {
         if(error)
