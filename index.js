@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const helmet = require('helmet');
 const mysql = require('mysql');
+const { request } = require('http');
 
 const connection = mysql.createConnection({
     host: 'workoutdb.cqhauiwyqpbl.us-east-2.rds.amazonaws.com',
@@ -66,6 +67,96 @@ app.post("/delete_workout", (request,response)=>{
         response.status(200).send(results);
     });
 });
+
+app.post("/edit_workout", (request,response)=>{
+    const {Lift_ID, Lift_name, Set1, Set2, Set3, Set4, Set5, Weight1, Weight2, Weight3, Weight4, Weight5, Date} = request.body;
+    var query = "";
+    if(Lift_name){
+        query= "UPDATE workoutdb.Lifts SET Lift_name = " + Lift_name + " Where Lift_ID= "+Lift_ID;
+        connection.query(query, (error,results)=>{
+            if(error)
+                console.log(error);
+        });
+    }
+    if(Set1){
+        query= "UPDATE workoutdb.Lifts SET Set1 = " + Set1 + " Where Lift_ID= "+Lift_ID;
+        connection.query(query, (error,results)=>{
+            if(error)
+                console.log(error);
+        });
+    }
+    if(Set2){
+        query= "UPDATE workoutdb.Lifts SET Set2 = " + Set2 + " Where Lift_ID= "+Lift_ID;
+        connection.query(query, (error,results)=>{
+            if(error)
+                console.log(error);
+        });
+    }
+    if(Set3){
+        query= "UPDATE workoutdb.Lifts SET Set3 = " + Set3 + " Where Lift_ID= "+Lift_ID;
+        connection.query(query, (error,results)=>{
+            if(error)
+                console.log(error);
+        });
+    }
+    if(Set4){
+        query= "UPDATE workoutdb.Lifts SET Set4 = " + Set4 + " Where Lift_ID= "+Lift_ID;
+        connection.query(query, (error,results)=>{
+            if(error)
+                console.log(error);
+        });
+    }
+    if(Set5){
+        query= "UPDATE workoutdb.Lifts SET Set5 = " + Set5 + " Where Lift_ID= "+Lift_ID;
+        connection.query(query, (error,results)=>{
+            if(error)
+                console.log(error);
+        });
+    }
+    if(Weight1){
+        query= "UPDATE workoutdb.Lifts SET Weight1 = " + Weight1 + " Where Lift_ID= "+Lift_ID;
+        connection.query(query, (error,results)=>{
+            if(error)
+                console.log(error);
+        });
+    }
+    if(Weight2){
+        query= "UPDATE workoutdb.Lifts SET Weight2 = " + Weight2 + " Where Lift_ID= "+Lift_ID;
+        connection.query(query, (error,results)=>{
+            if(error)
+                console.log(error);
+        });
+    }
+    if(Weight3){
+        query= "UPDATE workoutdb.Lifts SET Weight3 = " + Weight3 + " Where Lift_ID= "+Lift_ID;
+        connection.query(query, (error,results)=>{
+            if(error)
+                console.log(error);
+        });
+    }
+    if(Weight4){
+        query= "UPDATE workoutdb.Lifts SET Weight4 = " + Weight4 + " Where Lift_ID= "+Lift_ID;
+        connection.query(query, (error,results)=>{
+            if(error)
+                console.log(error);
+        });
+    }
+    if(Weight5){
+        query= "UPDATE workoutdb.Lifts SET Weight5 = " + Weight5 + " Where Lift_ID= "+Lift_ID;
+        connection.query(query, (error,results)=>{
+            if(error)
+                console.log(error);
+        });
+    }
+    if(Date){
+        query= "UPDATE workoutdb.Lifts SET Date = " + Date + " Where Lift_ID= "+Lift_ID;
+        connection.query(query, (error,results)=>{
+            if(error)
+                console.log(error);
+        });
+    }
+
+})
 
 //end api calls
 //starting server
