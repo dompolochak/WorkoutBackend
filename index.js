@@ -35,10 +35,10 @@ app.get("/get_workouts", (request, response) => {
     });
 });
 
+
 app.post("/post_workouts", (request, response) => {
     console.log(request.body.Lift_name);
     const {Lift_name, Set1, Set2, Set3, Set4, Set5, Weight1, Weight2, Weight3, Weight4, Weight5, Date} = request.body;
-   
     //query
     const query = 'INSERT INTO workoutdb.Lifts (Lift_name, set1,set2,set3,set4,set5,weight1, weight2, weight3,weight4, weight5, Date) values ("'+ Lift_name + '",' + Set1 + ',' + Set2 + ',' + Set3 + ',' + Set4 + ',' + Set5 + ',' + Weight1 + ',' + Weight2 + ',' + Weight3 + ',' + Weight4 + ',' + Weight5 + ',"' + Date + '");';
     console.log("Inside of post");
