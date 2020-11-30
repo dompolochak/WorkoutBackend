@@ -84,7 +84,7 @@ app.post("/edit_workout", (request,response)=>{
     const {Lift_ID, Lift_name, Set1, Set2, Set3, Set4, Set5, Weight1, Weight2, Weight3, Weight4, Weight5, Date} = request.body;
     var query = "";
     if(Lift_name){
-        query= "UPDATE workoutdb.Lifts SET Lift_name = " + Lift_name + " Where Lift_ID= "+Lift_ID;
+        query= "UPDATE workoutdb.Lifts SET Lift_name = '" + Lift_name + "' Where Lift_ID= "+Lift_ID;
         connection.query(query, (error,results)=>{
             if(error){
                 console.log(error);
@@ -183,7 +183,7 @@ app.post("/edit_workout", (request,response)=>{
         });
     }
     if(Date){
-        query= "UPDATE workoutdb.Lifts SET Date = " + Date + " Where Lift_ID= "+Lift_ID;
+        query= "UPDATE workoutdb.Lifts SET Date = '" + Date + "' Where Lift_ID= "+Lift_ID;
         connection.query(query, (error,results)=>{
             if(error){
                 console.log(error);
