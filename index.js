@@ -65,8 +65,10 @@ app.post("/delete_workout", (request,response)=>{
             console.log(error);
             return response.status(400).send();
         }
-        else 
+        else {
+            console.log("success");
             return response.status(200).send();
+        }
     });
 });
 
