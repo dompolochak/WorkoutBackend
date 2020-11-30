@@ -161,7 +161,7 @@ app.post("/edit_workout", (request,response)=>{
                 console.log(error);
         });
     }
-
+    return response.status(200).send();
 })
 
 //end api calls
