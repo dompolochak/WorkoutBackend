@@ -1,6 +1,7 @@
 {
   "name": "workoutbackend",
   "version": "1.0.0",
+  "isLive": true,
   "description": "Backend",
   "main": "index.js",
   "scripts": {

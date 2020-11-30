@@ -4,6 +4,10 @@ const cors = require('cors');
 const helmet = require('helmet');
 const mysql = require('mysql');
 const { request } = require('http');
+const packageJson = require('./package.json');
+
+const doItLive=packageJson.isLive;
+
 
 const connection = mysql.createConnection({
     host: 'workoutdb.cqhauiwyqpbl.us-east-2.rds.amazonaws.com',
@@ -19,6 +23,8 @@ app.use(helmet());//enhanced security
 app.use(bodyParser.json());
 
 app.use(cors());
+
+const PORT = process.env.PORT || 4000;
 
 //start api calls
 app.get("/get_workouts", (request, response) => {
@@ -160,6 +166,6 @@ app.post("/edit_workout", (request,response)=>{
 
 //end api calls
 //starting server
-app.listen(4000, () => {
-    console.log("Listening on port 4000");
+app.listen(PORT, () => {
+    console.log("Listening to " + PORT);
 });
