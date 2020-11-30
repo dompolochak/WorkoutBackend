@@ -30,16 +30,13 @@ const PORT = process.env.PORT || 4000;
 app.get("/get_workouts", (request, response) => {
     //query
     const query = 'SELECT * FROM workoutdb.Lifts';
-    connection.query(query, (error,results) => {
+    connection.query(query, (error,results)=>{
         if(error){
-        {
-            
-            return response.status(400).send();
-        }console.log(error);
+            console.log(error);
             return response.status(400).send();
         }
-        
-        response.status(200).send(results);
+        else   
+            return response.status(200).send(results);
     });
 });
 
@@ -49,34 +46,27 @@ app.post("/post_workouts", (request, response) => {
     const {Lift_name, Set1, Set2, Set3, Set4, Set5, Weight1, Weight2, Weight3, Weight4, Weight5, Date} = request.body;
     //query
     const query = 'INSERT INTO workoutdb.Lifts (Lift_name, set1,set2,set3,set4,set5,weight1, weight2, weight3,weight4, weight5, Date) values ("'+ Lift_name + '",' + Set1 + ',' + Set2 + ',' + Set3 + ',' + Set4 + ',' + Set5 + ',' + Weight1 + ',' + Weight2 + ',' + Weight3 + ',' + Weight4 + ',' + Weight5 + ',"' + Date + '");';
-    console.log("Inside of post");
-    connection.query(query, (error,results) => {
-        if(error){
-        {
-            
-            return response.status(400).send();
-        }console.log(error);
-            return response.status(400).send();
-        }
-        
-        response.status(200).send(results);
-    });
+    connection.query(query, (error,results)=>{
+            if(error){
+                console.log(error);
+                return response.status(400).send();
+            }
+            else
+                response.status(200).send(results);
+        });
 });
 
 app.post("/delete_workout", (request,response)=>{
     const {Lift_ID}=request.body;
     const query = "DELETE FROM workoutdb.Lifts WHERE Lift_ID = " + Lift_ID;
 
-    connection.query(query, (error,results) => {
+    connection.query(query, (error,results)=>{
         if(error){
-        {
-            
-            return response.status(400).send();
-        }console.log(error);
+            console.log(error);
             return response.status(400).send();
         }
-        
-        response.status(200).send(results);
+        else 
+            return response.status(200).send();
     });
 });
 
