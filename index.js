@@ -5,6 +5,7 @@ const helmet = require('helmet');
 const mysql = require('mysql');
 const { request } = require('http');
 const packageJson = require('./package.json');
+const bcrypt = require('bcryptjs');
 
 const doItLive=packageJson.isLive;
 
@@ -184,6 +185,70 @@ app.post("/edit_workout", (request,response)=>{
         });
     }
     return response.status(200).send();
+})
+
+//********************start registration ******************** */
+function isUniqueEmail(email){
+    return new Promise((resolve,reject)=>{
+        const query = "SELECT * FROM Users WHERE email="+connection.escape(email)+";";
+        connection.query(query,(error,result)=>{
+            if(error)
+                reject({status: 400});
+            if(result.length)
+                reject({status: 409, cause: "emailTaken"});
+            else
+                resolve();
+        })
+    })
+}
+
+function isUniqueUsername(username){
+    return new Promise((resolve,reject)=>{
+        const query = "SELECT * FROM Users WHERE username="+connection.escape(username)+";";
+        connection.query(query,(error,result)=>{
+            if(error)
+                reject({status: 400});
+            if(result.length)
+                reject({status: 409, cause: "usernameTaken"});
+            else
+                resolve();
+        })
+    })
+}
+
+app.post("/register",(request,response)=>{
+    const {username, email, password} = request.body;
+    //await all responses from database
+    Promise.all([
+        isUniqueEmail(email), isUniqueUsername(username)
+    ])
+    .then(()=>{
+        bcrypt.hash(password, 10, (error, hashPassword)=>{
+            if(error)
+                return response.status(400).send();
+            const query = `INSERT INTO Users (username, email, password) VALUES ("${username}", "${email}", "${hashPassword}");`;
+            connection.query(query, error=>{
+                if(error){
+                    console.log(error);
+                    return response.status(400).send();
+                }
+                return response.status(201).send();
+                //create jwt token
+                // generateToken(tbd)
+                // .then(token=>{
+                //     if(!token)
+                //         return response.status(400).send();
+                //     else//TODO: create cookie and return
+                //         return response.status(201).send();
+                // })
+                // .catch();
+            });
+        });
+    })
+    .catch(error=>{
+        return response.status(error.status).send({cause: error.cause});
+    });
+
 })
 
 //end api calls
