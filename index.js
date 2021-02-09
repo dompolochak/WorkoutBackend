@@ -1,3 +1,5 @@
+require('dotenv').config({path: './Lib/dbVariables.env'});
+require('dotenv').config({path: './Lib/jwtSettings.env'});
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
@@ -6,16 +8,12 @@ const mysql = require('mysql');
 const { request } = require('http');
 const packageJson = require('./package.json');
 const bcrypt = require('bcryptjs');
+const connection = require('./Lib/Connection');
+const {generateToken} = require('./Middleware/AuthenticationToken');
 
 const doItLive=packageJson.isLive;
 
 
-const connection = mysql.createConnection({
-    host: 'workoutdb.cqhauiwyqpbl.us-east-2.rds.amazonaws.com',
-    user: 'admin',
-    password: 'watermelon',
-    database: 'workoutdb'
-});
 
 const app = express();
 
@@ -232,16 +230,20 @@ app.post("/register",(request,response)=>{
                     console.log(error);
                     return response.status(400).send();
                 }
-                return response.status(201).send();
+
                 //create jwt token
-                // generateToken(tbd)
-                // .then(token=>{
-                //     if(!token)
-                //         return response.status(400).send();
-                //     else//TODO: create cookie and return
-                //         return response.status(201).send();
-                // })
-                // .catch();
+                generateToken(null, username, null)
+                .then(token=>{
+                    if(!token){
+                        console.log("no token");
+                        return response.status(400).send();
+                    }
+                    else//TODO: create cookie and return
+                        return response.status(201).send(token);
+                })
+                .catch(()=>{
+                    console.log("ok");
+                    return response.status(400).send();});
             });
         });
     })
